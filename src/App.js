@@ -1,38 +1,51 @@
-import React from 'react';
-import PropTypes from 'prop-types'
+import React, {Component} from 'react';
 
-const App = () => {
-  const profiles = [
-    {name: "taro",age: 10 },
-    {name: "Hanako",age: 5 },
-    {name: "NOname", age: 13}
-  ]
-  return (
-    <div>
-    {
-      profiles.map((profile, index) => {
-        return <User name={profile.name} age={profile.age} key={index} />
-      })
+const App = () => (<Counter></Counter>)
+// Appがカウンターを呼ぶ
+
+class Counter extends Component {
+  constructor(props) {
+    // カウンターが呼び出されたときにコンストラクターが表示されるようになる
+    super(props)
+    console.log(this.state)
+    this.state = {count: 0}
+    // countの初期化時のメソッドの入り方
+  }
+
+  handlePlusButton = () => {
+    console.log("handlePlusButton")
+    console.log(this.state.count)
+    const currentCount = this.state.count
+    this.setState({ count: currentCount + 1 })
+  }
+
+  handleMinusButton = () => {
+    this.setState({ count: this.state.count - 1})
+  }
+// ハンドルクラスボタンでの定義をしている
+// stateを設定する
+// 最初の初期化時に０にセットすることができたが
+// 今のカウントが必要なのでカレントカウントを必要とされている
+
+// handlePlusButton = () => {
+//   this.setState({ count: this.state.count + 1})
+// }
+// 上記の表示をこのようなことでも呼び出すことが出来るようになる
+
+  render () {
+    console.log(this.state)
+      return (
+        <React.Fragment>
+          <div>count: { this.state.count }</div>
+          <button onClick={this.handlePlusButton}>+1</button>
+          <button onClick={this.handleMinusButton}>-1</button>
+        </React.Fragment>
+        )
     }
-    </div>
-    // divないの全てのものが表示されている
-    // {}での書き方はjsでの書き方
-    // / を入れることによって管理されている
-    // indexをmapとreturnに入れることによって様々なコンソール時のエラーを防ぐことが出来るようになる
-  )
-}
-
-const User = (props) => {
-  return <div>MY name is {props.name}, and {props.age} years old</div>
-// 名前を表示したいところに上記で使用したpropsを代入してあげることによって表示される
-}
-
-User.propTypes = {
-  name: PropTypes.string,
-  age: PropTypes.number
-}
-
-// string = 文字列型
-
+  }
 
 export default App;
+
+// コーポネントの初期化時にはconstructorが呼び出される
+// superで親クラスを初期化させることが出来るようになる
+// React.Fragmentが複数のものを表示することが出来るようになる
