@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
 
-import { increment, decrement} from '../actions'
+import { readEvents} from '../actions'
 
 class EventsIndex extends Component {
   componentDidMount() {
@@ -22,7 +22,7 @@ class EventsIndex extends Component {
     }
   }
 
-const mapStoreToProps = state => ({ value: state.count.value })
+const mapStoreToProps = state => ({})
 
 const mapDispatchToProps = ({ readEvents })
 // このように書くこともできる
