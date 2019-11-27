@@ -1,51 +1,29 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux'
 
-const App = () => (<Counter></Counter>)
-// Appがカウンターを呼ぶ
+import { increment, decrement} from '../actions'
 
-class Counter extends Component {
-  constructor(props) {
-    // カウンターが呼び出されたときにコンストラクターが表示されるようになる
-    super(props)
-    console.log(this.state)
-    this.state = {count: 0}
-    // countの初期化時のメソッドの入り方
-  }
-
-  handlePlusButton = () => {
-    console.log("handlePlusButton")
-    console.log(this.state.count)
-    const currentCount = this.state.count
-    this.setState({ count: currentCount + 1 })
-  }
-
-  handleMinusButton = () => {
-    this.setState({ count: this.state.count - 1})
-  }
-// ハンドルクラスボタンでの定義をしている
-// stateを設定する
-// 最初の初期化時に０にセットすることができたが
-// 今のカウントが必要なのでカレントカウントを必要とされている
-
-// handlePlusButton = () => {
-//   this.setState({ count: this.state.count + 1})
-// }
-// 上記の表示をこのようなことでも呼び出すことが出来るようになる
-
+class App extends Component {
   render () {
-    console.log(this.state)
+    const props = this.props
       return (
         <React.Fragment>
-          <div>count: { this.state.count }</div>
-          <button onClick={this.handlePlusButton}>+1</button>
-          <button onClick={this.handleMinusButton}>-1</button>
+          <div>Value: { props.value }</div>
+          <button onClick={props.increment}>+1</button>
+          <button onClick={props.decrement}>-1</button>
         </React.Fragment>
         )
     }
   }
 
-export default App;
+const mapStoreToProps = state => ({ value: state.count.value })
+// const mapDispatchToProps = dispatch => ({ 
+//   increment: () => dispatch(increment()),
+//   decrement: () => dispatch(decrement())
+// })
+const mapDispatchToProps = ({ increment, decrement})
+// このように書くこともできる
 
-// コーポネントの初期化時にはconstructorが呼び出される
-// superで親クラスを初期化させることが出来るようになる
-// React.Fragmentが複数のものを表示することが出来るようになる
+
+export default connect(mapStoreToProps, mapDispatchToProps)(App)
+// ここでコネクトしている（超大切！）
