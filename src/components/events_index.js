@@ -3,7 +3,13 @@ import { connect } from 'react-redux'
 
 import { increment, decrement} from '../actions'
 
-class App extends Component {
+class EventsIndex extends Component {
+  componentDidMount() {
+    console.log("hi")
+    this.props.readEvents()
+  }
+// readEventsというものが外部のAPIサーバーを取得するような役割を担っている
+
   render () {
     const props = this.props
       return (
@@ -17,13 +23,10 @@ class App extends Component {
   }
 
 const mapStoreToProps = state => ({ value: state.count.value })
-// const mapDispatchToProps = dispatch => ({ 
-//   increment: () => dispatch(increment()),
-//   decrement: () => dispatch(decrement())
-// })
-const mapDispatchToProps = ({ increment, decrement})
+
+const mapDispatchToProps = ({ readEvents })
 // このように書くこともできる
 
 
-export default connect(mapStoreToProps, mapDispatchToProps)(App)
+export default connect(mapStoreToProps, mapDispatchToProps)(EventsIndex)
 // ここでコネクトしている（超大切！）
