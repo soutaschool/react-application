@@ -1,13 +1,15 @@
+import _ from 'lodash'
 import { READ_EVENTS } from '../actions'
 
 // state = しょきちを設定
 
-export default (state = {}, action) => {
+export default (events = {}, action) => {
     switch (action.type) {
         case READ_EVENTS:
-            return state
+            return _.mapKeys(action.response.data, 'id')
         default:
-            return state
+            return events 
     }
 }
 // switch文で分岐させることが可能になる
+// action.response.dataで確認をすることが出来る

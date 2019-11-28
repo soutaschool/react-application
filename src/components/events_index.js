@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 import { readEvents} from '../actions'
 
@@ -9,19 +10,36 @@ class EventsIndex extends Component {
   }
 // readEventsというものが外部のAPIサーバーを取得するような役割を担っている
 
+renderEvents() {
+  return _.map(this.props.events, event => (
+    <tr key={event.id}>
+      <td>{event.id}</td>
+      <td>{event.title}</td>
+      <td>{event.body}</td>
+    </tr>
+  ) )
+}
+
   render () {
-    const props = this.props
       return (
-        <React.Fragment>
-          <div>Value: { props.value }</div>
-          <button onClick={props.increment}>+1</button>
-          <button onClick={props.decrement}>-1</button>
-        </React.Fragment>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Body</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {this.renderEvents()}
+          </tbody>
+        </table>
         )
     }
   }
 
-const mapStoreToProps = state => ({})
+const mapStoreToProps = state => ({ events: state.events })
 
 const mapDispatchToProps = ({ readEvents })
 // このように書くこともできる
