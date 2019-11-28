@@ -1,12 +1,9 @@
 import { READ_EVENTS } from '../actions'
 
-// state = しょきちを設定
-
-const initialState = { value: 0 }
-
 export default (state = {}, action) => {
     switch (action.type) {
         case READ_EVENTS:
+            console.log(action.response.data)
             return state
         default:
             return state
